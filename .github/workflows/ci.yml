@@ -1,0 +1,88 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 6 * * *'   # daily: catch drift between the live service and this repo
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # full history for the secret scan
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run lint
+      - run: shellcheck examples/*/*.sh
+      - name: Secret scan (gitleaks, whole history)
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.30.1 git /repo --redact --verbose
+
+  mcp:
+    name: keyless MCP check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      # initialize + tools/list against https://mobilebox.dev/mcp without a key,
+      # README tool table vs live tools/list, server.json vs the official MCP registry.
+      - run: node scripts/check-mcp.mjs
+
+  has-key:
+    runs-on: ubuntu-latest
+    outputs:
+      present: ${{ steps.check.outputs.present }}
+    steps:
+      - id: check
+        env:
+          KEY: ${{ secrets.MOBILESANDBOX_API_KEY }}
+        run: echo "present=$([ -n "$KEY" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  smoke:
+    name: examples against production
+    # Real phones, real credit (5 phones, about $0.05 a run): only with the repository secret, never on pull requests or schedules.
+    needs: [lint, mcp, has-key]
+    if: needs.has-key.outputs.present == 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MOBILESANDBOX_API_KEY: ${{ secrets.MOBILESANDBOX_API_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: curl walkthrough
+        working-directory: ${{ runner.temp }}
+        run: ${{ github.workspace }}/examples/curl/walkthrough.sh
+      - name: Python client
+        run: python3 examples/python/mobilebox.py
+      - name: TypeScript client
+        run: node examples/typescript/mobilebox.ts
+      - name: Download a public test APK
+        # F-Droid moves older versions from repo/ to archive/; the checksum pins the exact file.
+        run: |
+          apk=org.billthefarmer.editor_198.apk
+          curl -sSfLo "$RUNNER_TEMP/editor.apk" "https://f-droid.org/repo/$apk" ||
+            curl -sSfLo "$RUNNER_TEMP/editor.apk" "https://f-droid.org/archive/$apk"
+          echo "343d17e11d0914e1a7708df2781580a0413e52501c0a41d91f7ef725d9615fe9  $RUNNER_TEMP/editor.apk" | sha256sum -c
+      - name: Claude Code replay
+        run: examples/claude-code/replay.sh "$RUNNER_TEMP/editor.apk" org.billthefarmer.editor "Access all files"
+      - name: GitHub Actions smoke test
+        run: node examples/github-actions/smoke.mjs
+        env:
+          APK_FILE: ${{ runner.temp }}/editor.apk
+          EXPECTED_PACKAGE: org.billthefarmer.editor
+          EXPECTED_LABEL: Access all files

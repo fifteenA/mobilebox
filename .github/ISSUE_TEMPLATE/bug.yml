@@ -1,0 +1,34 @@
+name: Bug
+description: An example, doc or API behaviour that does not match what is written.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Never paste an API key. Phone ids (ph_…) and error codes are fine.
+  - type: input
+    id: where
+    attributes:
+      label: Example, doc page, endpoint or MCP tool
+      placeholder: examples/python/mobilebox.py, or act, or POST /v1/phones
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What you ran
+      description: Command, request body or tool arguments.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened and what you expected
+      description: Include the error code, message and next field if you got one.
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: Client and version
+      placeholder: Claude Code 2.x, Cursor 1.x, Python 3.12, Node 24

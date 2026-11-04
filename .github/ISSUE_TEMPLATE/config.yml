@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/fifteenA/mobilebox/blob/main/SECURITY.md
+    about: Report privately by email, not in an issue.
+  - name: Account, billing or keys
+    url: mailto:hello@mobilebox.dev
+    about: Email us; never post a key in an issue.

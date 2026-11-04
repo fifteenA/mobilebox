@@ -1,0 +1,17 @@
+{
+  "name": "mobilebox-examples",
+  "private": true,
+  "type": "module",
+  "description": "Checks for the Mobilebox examples. The examples themselves have no dependencies.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "lint": "tsc -p . && node --check examples/github-actions/smoke.mjs && node --check scripts/check-mcp.mjs && python3 -m py_compile examples/python/mobilebox.py",
+    "check:mcp": "node scripts/check-mcp.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "5.9.3"
+  }
+}

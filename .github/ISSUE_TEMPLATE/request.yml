@@ -1,0 +1,16 @@
+name: Request
+description: A missing example, tool, action or doc.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What are you trying to do?
+      description: The task your agent or test needs to complete, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What happens today?
+      description: What you tried and where it stops.
