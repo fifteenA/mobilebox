@@ -27,6 +27,20 @@ Times include boot (the phone is free until ready) and are measured on the calli
 | Live view | `examples/watch/watch.sh` (`CI` set, so the view is printed, not opened) | `live view: https://mobilebox.dev/watch#v1.…`, `ok: Settings > Display is open`, deleted | 26 s |
 | Keyless MCP check | `node scripts/check-mcp.mjs` | initialize, tools/list (13 tools, `watch_phone` added), README table and `server.json` match | 0.6 s |
 
+**2026-11-05**, framework integrations ([integrations/](integrations)), each run once against production from Linux, Python 3.12 / Node 24.22. Models came through an OpenAI-compatible endpoint (`OPENAI_BASE_URL`, `MODEL`), except the Claude Agent SDK (its default Claude model). Framework versions: openai-agents 0.24.0, langgraph 1.2.20 + langchain-mcp-adapters 0.3.2, crewai 1.15.35, browser-use 0.13.14, @mastra/core 1.82.0 + @mastra/mcp 2.8.0, ai 7.0.163 + @ai-sdk/mcp 2.0.91, @anthropic-ai/claude-agent-sdk 0.3.318.
+
+| Example | Model | Result | Time |
+|---|---|---|---|
+| OpenAI Agents SDK | GLM-5.3 (Chat Completions) | `Brightness level: 83%`, deleted | 37.9 s |
+| LangGraph | GLM-5.3 | `Brightness level: 83%`, deleted | 30.7 s |
+| CrewAI | GLM-5.3 (LiteLLM) | `The brightness level ... is 83%`, deleted | 36 s |
+| browser-use | Kimi K3.1 Pro | phone: Android 14 (Settings > About phone); web: released 4 October 2023 (Wikipedia), deleted | 174 s |
+| Mastra | GLM-5.3 (`togetherai/…`) | `Brightness level: 83%`, deleted | 33 s |
+| Vercel AI SDK | GLM-5.3 | `Brightness level: 83%`, deleted | 32 s |
+| Claude Agent SDK | Claude (default) | `The brightness level is 83%`, deleted | 35 s |
+
+Times include boot and the model's own latency. The CrewAI run used the `act` schema with swipe points as plain arrays (CrewAI drops tools whose schema has tuple-form `items`), served on production with the next release.
+
 <details>
 <summary>Python output</summary>
 

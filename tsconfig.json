@@ -12,5 +12,8 @@
   },
   "include": [
     "examples/**/*.ts"
+  ],
+  "exclude": [
+    "examples/integrations"
   ]
 }

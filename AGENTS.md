@@ -46,7 +46,7 @@ Phones are arm64-v8a: x86-only builds fail with `unsupported_abi`. A different s
 ## Changing this repository
 
 - Every example must run unchanged against production with only `MOBILESANDBOX_API_KEY` set, and must delete every phone it creates, also on failure. Re-run what you change and update [examples/RUNS.md](examples/RUNS.md) with the date, command, result and timing.
-- No dependencies in examples: Python stdlib, Node 24 `fetch`, bash + curl + jq.
+- No dependencies in the core examples: Python stdlib, Node 24 `fetch`, bash + curl + jq. `examples/integrations/` use only their framework's own packages (see its README); CI syntax-checks them, they run by hand with a model key.
 - No secrets, internal hostnames or IP addresses. CI runs a secret scan.
 - The README tool table is generated: `node scripts/check-mcp.mjs --write`. `server.json` must equal the official registry entry `dev.mobilebox/mobilebox`; change it there first.
 - Checks before a PR: `npm ci && npm run lint && npm run check:mcp`.

@@ -2,12 +2,12 @@
   "name": "mobilebox-examples",
   "private": true,
   "type": "module",
-  "description": "Checks for the Mobilebox examples. The examples themselves have no dependencies.",
+  "description": "Checks for the Mobilebox examples. The core examples have no dependencies; examples/integrations use each framework's own package.",
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "lint": "tsc -p . && node --check examples/github-actions/smoke.mjs && node --check scripts/check-mcp.mjs && python3 -m py_compile examples/python/mobilebox.py",
+    "lint": "tsc -p . && node --check examples/github-actions/smoke.mjs && node --check scripts/check-mcp.mjs && python3 -m py_compile examples/python/mobilebox.py examples/integrations/*/agent.py && node --check examples/integrations/mastra/agent.ts && node --check examples/integrations/vercel-ai-sdk/agent.ts && node --check examples/integrations/claude-agent-sdk/agent.ts",
     "check:mcp": "node scripts/check-mcp.mjs"
   },
   "devDependencies": {
