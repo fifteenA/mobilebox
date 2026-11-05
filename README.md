@@ -142,7 +142,7 @@ Actions for `act`: `tap`, `long_press`, `swipe`, `scroll`, `scroll_to`, `type`, 
 
 ## Examples
 
-Each creates a phone, checks one outcome and deletes the phone, also when the check fails. All ran against production on 2026-11-04 ([RUNS.md](examples/RUNS.md)).
+Each creates a phone, checks one outcome and deletes the phone, also when the check fails. All ran against production: on 2026-11-04, and the live view example on 2026-11-05 ([RUNS.md](examples/RUNS.md)).
 
 | Example | Shows | Needs |
 |---|---|---|
