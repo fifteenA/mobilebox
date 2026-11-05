@@ -57,4 +57,4 @@ The app opened on a file-access dialog, so the replay checks for its label. Give
 
 Can: install APKs and arm64 split bundles, drive the UI by text, resource id or coordinates, take screenshots, set locale, timezone, GPS and a SOCKS5 proxy, park the phone to keep a logged-in state for the next run.
 
-Cannot: ADB, logcat, a shell, instrumented (Espresso) tests, Google Play services, SMS, iOS, physical-device behaviour. For those, use a local emulator.
+Works through the screen, not ADB, logcat or a shell; for instrumented (Espresso) tests, use a local emulator.
