@@ -26,6 +26,7 @@ Use Mobilebox when a task needs a phone: an app with no API or website, a mobile
 - `stale_ref`: observe again, then target by text or id.
 - `type_not_applied`: tap the field first or pass `target`.
 - `phone_limit` (429) or `box_full` (503): the workspace is scaling, and the message links a call to raise it; pass that link to your user. To go on now, park or delete the phone `next` names (other keys in the same workspace share its phones, so it may not be yours: ask before touching it), or wait `retry_after` seconds.
+- `setup_required` (409): the message has a setup link for the device you asked for; give it to your user. Nothing was created or charged.
 - Lost a create response? Retry with the same `idempotency_key` and the same options: you get the same phone. Without a key, `list_phones` before creating again.
 - Waits (`?wait=ready&timeout=`) cap at 55 s. A phone still `creating` or `starting` after a wait is normal: poll the same id.
 
@@ -41,7 +42,7 @@ Phones are arm64-v8a: x86-only builds fail with `unsupported_abi`. A different s
 
 **Cost.** A ready cloud Android phone costs $0.01 per minute, iPhone and iPad $0.05, a real Android device $0.03, billed per second. Parked phones are free. Set `idle_timeout` and `max_duration` (seconds) to bound your task. Never leave a phone running when you are done.
 
-**Devices.** iPhones and real Android devices are provisioned per workspace. Until a workspace's iPhones are on, `platform: "ios"` answers `setup_required` (no phone, no charge) with a 15-min setup link; give it to your user. Until its real devices are on, `device: "real"` returns a cloud phone with a `notice`. There is no ADB or shell: work through the screen.
+**Devices.** Every response says which `platform` and `device` you got. There is no ADB or shell: work through the screen.
 
 ## Changing this repository
 
