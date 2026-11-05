@@ -62,7 +62,7 @@ h1 em { display: block; font-style: normal; color: ${t.muted}; }
 <h1>Mobile sandboxes <em>for your AI agents.</em></h1></div>`
 
 // The numbers strip: measured or read from the implementation (see the README for where each comes from).
-const STATS = [['~18 s', 'to a ready phone'], ['12', 'MCP tools'], ['$0.01', 'per phone-minute'], ['Android 14', 'arm64 phones'], ['Park & resume', 'apps and logins kept']]
+const STATS = [['~18 s', 'to a ready phone'], ['13', 'MCP tools'], ['$0.01', 'per phone-minute'], ['Android 14', 'arm64 phones'], ['Park & resume', 'apps and logins kept']]
 // Wide: one row on hairlines. Narrow (phones): two columns, so the labels stay readable when GitHub scales it down.
 const stats = (t, narrow) => `<!doctype html><style>${css(t)}
 .canvas { display: grid; grid-template-columns: repeat(${narrow ? 2 : STATS.length}, auto); row-gap: 20px; width: max-content; padding: 16px 0; background: transparent; box-shadow: none; border-radius: 0; }

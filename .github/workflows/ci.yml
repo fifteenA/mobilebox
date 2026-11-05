@@ -67,6 +67,8 @@ jobs:
       - name: curl walkthrough
         working-directory: ${{ runner.temp }}
         run: ${{ github.workspace }}/examples/curl/walkthrough.sh
+      - name: Live view example
+        run: examples/watch/watch.sh
       - name: Python client
         run: python3 examples/python/mobilebox.py
       - name: TypeScript client

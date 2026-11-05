@@ -18,6 +18,7 @@
   <a href="https://github.com/fifteenA/mobilebox/actions/workflows/ci.yml"><img src="https://github.com/fifteenA/mobilebox/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://glama.ai/mcp/connectors/dev.mobilebox/mobilebox"><img src="https://glama.ai/mcp/connectors/dev.mobilebox/mobilebox/badges/score.svg" alt="Rated A on Glama"></a>
   <a href="https://registry.modelcontextprotocol.io/v0/servers?search=dev.mobilebox/mobilebox"><img src="https://img.shields.io/badge/MCP_registry-dev.mobilebox%2Fmobilebox-2a46d1" alt="Official MCP registry: dev.mobilebox/mobilebox"></a>
+  <a href="https://www.npmjs.com/package/mobilebox"><img src="https://img.shields.io/npm/v/mobilebox?color=2a46d1&label=npm" alt="npm: mobilebox"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2a46d1" alt="MIT license"></a>
 </p>
 
@@ -34,7 +35,7 @@
     <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset=".github/readme/stats-dark-narrow.png">
     <source media="(max-width: 600px)" srcset=".github/readme/stats-light-narrow.png">
     <source media="(prefers-color-scheme: dark)" srcset=".github/readme/stats-dark.png">
-    <img src=".github/readme/stats-light.png" alt="~18 s to a ready phone · 12 MCP tools · $0.01 per phone-minute · Android 14 arm64 phones · park and resume, apps and logins kept" width="820">
+    <img src=".github/readme/stats-light.png" alt="~18 s to a ready phone · 13 MCP tools · $0.01 per phone-minute · Android 14 arm64 phones · park and resume, apps and logins kept" width="820">
   </picture>
   <br><sub>Ready time: create to ready, three runs on 2026-11-04 (<a href="examples/RUNS.md">RUNS.md</a>).</sub>
 </p>
@@ -96,6 +97,21 @@ bearer_token_env_var = "MOBILESANDBOX_API_KEY"
 
 Next: let your agent [test the APK you just built](examples/claude-code), or run the same check [in CI](examples/github-actions). No MCP client? [curl/walkthrough.sh](examples/curl/walkthrough.sh) does the whole loop over REST ([OpenAPI](https://mobilebox.dev/openapi.json), [reference](https://mobilebox.dev/docs/reference)).
 
+## Watch your agent
+
+<p align="center">
+  <img src=".github/readme/live-view.gif" alt="The live view of a Mobilebox phone while an agent opens Wikipedia, types Matterhorn, opens the article and scrolls to Quick facts: a cursor moves to each target, a swipe leaves a trail, the typed text appears, and the log beside the phone captions every step, one of them failed with its reason." width="760">
+  <br><sub>A real agent on a Mobilebox phone, recorded in the live view at real speed. One step fails, and the log says why.</sub>
+</p>
+
+Open a live view of any running phone and see every step as it happens: a cursor that moves to each target, a ripple for every tap, a trail for every swipe, the text as it is typed (dots in password fields), and a caption with its time for each step. Nothing depends on sound, and screen readers announce each caption.
+
+```bash
+npx mobilebox watch <phone_id>   # with MOBILESANDBOX_API_KEY set: opens the view in its own window
+```
+
+Over MCP, ask your agent to show you the phone: `watch_phone` returns the link (REST: `POST /v1/phones/{id}/view`). The dashboard has a Watch button on every running phone. The view is read-only and watching is free. Try it with [watch/watch.sh](examples/watch/watch.sh); details in the [API reference](https://mobilebox.dev/docs/reference#watch-live).
+
 ## Tools
 
 Phones, apps and the screen over MCP; REST adds binary APK upload, account balance and billed sessions. Without a key, `/mcp` answers `initialize`, `tools/list` and `ping`; every `tools/call` needs the key.
@@ -118,6 +134,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | `observe` | Read the current screen as a numbered element list. | `phone_id` |
 | `act` | Run 1–20 actions in order, stop at the first failure, return results and the new screen. | `phone_id`, `actions` |
 | `screenshot` | PNG of the screen, for content the element list cannot show (images, maps, games). | `phone_id` |
+| `watch_phone` | A link to watch the phone live, for the user: its screen with each of your actions drawn on it (cursor, taps, swipes, typed text) and a caption per step. | `phone_id` |
 <!-- tools:end -->
 
 Actions for `act`: `tap`, `long_press`, `swipe`, `scroll`, `scroll_to`, `type`, `key`, `back`, `home`, `open_app`, `close_app`, `wait`, `wait_for`. Targets: `{"text":"OK"}` (best default), `{"ref":3}`, `{"id":"com.app:id/login"}`, `{"desc":"Navigate up"}`, `{"x":540,"y":1200}`. REST only: `POST /v1/phones/{id}/apps` (APK upload), `GET /v1/account`, `GET /v1/phones/{id}/sessions`. Full vocabulary: [API reference](https://mobilebox.dev/docs/reference).
@@ -130,6 +147,7 @@ Each creates a phone, checks one outcome and deletes the phone, also when the ch
 | Example | Shows | Needs |
 |---|---|---|
 | [curl/walkthrough.sh](examples/curl/walkthrough.sh) | create, observe, act, screenshot, delete | bash, curl, jq |
+| [watch/watch.sh](examples/watch/watch.sh) | open the live view, then act while you watch | bash, curl, jq; Node for `npx mobilebox` |
 | [python/mobilebox.py](examples/python/mobilebox.py) | minimal client + Settings check | Python 3.9+, stdlib |
 | [typescript/mobilebox.ts](examples/typescript/mobilebox.ts) | minimal client + Settings check | Node 24 |
 | [claude-code/](examples/claude-code) | Claude Code tests the APK you just built | an arm64 or universal APK |
