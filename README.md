@@ -130,7 +130,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | Tool | What it does | Arguments (`?` = optional) |
 |---|---|---|
 | `list_phones` | List this project's phones and their status. | – |
-| `create_phone` | Create a phone, wait until it is ready and return its first screen. | `platform?`, `device?`, `name?`, `idle_timeout?`, `max_duration?`, `country?`, `idempotency_key?` |
+| `create_phone` | Create a phone, wait until it is ready and return its first screen. | `platform?`, `device?`, `name?`, `idle_timeout?`, `max_duration?`, `country?`, `idempotency_key?`, `task?` |
 | `start_phone` | Resume a parked phone. | `phone_id` |
 | `park_phone` | Park a phone: shuts it down and stops billing. | `phone_id` |
 | `delete_phone` | Delete a phone and everything on it. | `phone_id` |
