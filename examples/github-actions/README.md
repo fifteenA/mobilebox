@@ -13,7 +13,7 @@ MOBILESANDBOX_API_KEY=... APK_FILE=app-debug.apk EXPECTED_PACKAGE=com.example.ap
   node smoke.mjs
 ```
 
-`smoke.mjs` exits non-zero on a wrong package, a failed action or a failed cleanup. It deletes the phone on success, on failure and when the job is cancelled (SIGINT/SIGTERM), and retries a lost create with the same `Idempotency-Key`, so it never makes a second phone. Only a hard kill skips cleanup; `idle_timeout` (120 s) then parks the phone, which still counts toward your 10 kept phones. A run costs about $0.01: one phone, one-minute minimum.
+`smoke.mjs` exits non-zero on a wrong package, a failed action or a failed cleanup. It deletes the phone on success, on failure and when the job is cancelled (SIGINT/SIGTERM), and retries a lost create with the same `Idempotency-Key`, so it never makes a second phone. Only a hard kill skips cleanup; `idle_timeout` (120 s) then parks the phone (free while parked; delete it when you see it). A run costs about $0.01: one phone, one-minute minimum.
 
 | Output | Next step |
 |---|---|

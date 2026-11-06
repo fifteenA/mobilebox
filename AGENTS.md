@@ -4,7 +4,7 @@ Two parts: how to operate a Mobilebox phone, and how to change this repository. 
 
 ## Operating a phone
 
-Use Mobilebox when a task needs an Android phone: an app with no API or website, a mobile-only flow, or testing an Android build. You operate the phone through its screen.
+Use Mobilebox when a task needs a phone: an app with no API or website, a mobile-only flow, or testing an Android or iOS build. Cloud Android is the default; ask for iPhone and iPad with `platform: "ios"` and a real Android device with `device: "real"`. You operate the phone through its screen.
 
 **Connect.** MCP at `https://mobilebox.dev/mcp` or REST at `https://mobilebox.dev/v1`, both with `Authorization: Bearer $MOBILESANDBOX_API_KEY`. Read the key from the environment. Never print it, log it or put it in a prompt, file or commit. Calling MCP by hand (no MCP client)? POST JSON-RPC with `Content-Type: application/json` and `Accept: application/json, text/event-stream`, or you get a 406; [examples/claude-code/replay.sh](examples/claude-code/replay.sh) has a `tool` helper.
 
@@ -15,7 +15,7 @@ Use Mobilebox when a task needs an Android phone: an app with no API or website,
 3. `act` with the steps you are sure of (1–20 actions). You get one result per action and the new screen. Apps open by package name: `{"type":"open_app","package":"com.android.settings"}` for Settings. `list_apps` shows only apps you installed.
 4. Verify the outcome on the returned screen. A successful tap proves an input, not a result.
 5. Repeat 2–4. Observe when unsure instead of guessing.
-6. Clean up: `delete_phone` for disposable phones, `park_phone` only when you need the apps, data and logins later (parked phones count toward the 10 kept). Do this even when the task failed.
+6. Clean up: `delete_phone` for disposable phones, `park_phone` only when you need the apps, data and logins later. Do this even when the task failed.
 
 **Targets**, best first: `{"text":"Sign in"}` (exact, then contains; `nth` picks among matches), `{"id":"com.app:id/login"}`, `{"desc":"Navigate up"}`, `{"ref":3}` (only from the latest screen), `{"x":540,"y":1200}` (last resort; check a screenshot first). Labels are in the phone's language: `country` on create also sets the locale.
 
@@ -25,7 +25,8 @@ Use Mobilebox when a task needs an Android phone: an app with no API or website,
 - A batch stops at the first failed action; earlier actions stay applied. REST returns HTTP 200 with `results[i].ok=false`; MCP `act` reports failures in its text. Continue from the current screen. Do not replay a whole batch or repeat a submit blindly.
 - `stale_ref`: observe again, then target by text or id.
 - `type_not_applied`: tap the field first or pass `target`.
-- `phone_limit` (429): park or delete the phone it names. Other keys in the same workspace share the 3 running phones, so the phone may not be yours: ask before touching it. `box_full` (503): wait `retry_after` seconds.
+- `phone_limit` (429) or `box_full` (503): the workspace is scaling, and the message links a call to raise it; pass that link to your user. To go on now, park or delete the phone `next` names (other keys in the same workspace share its phones, so it may not be yours: ask before touching it), or wait `retry_after` seconds.
+- `setup_required` (409): the message has a setup link for the device you asked for; give it to your user. Nothing was created or charged.
 - Lost a create response? Retry with the same `idempotency_key` and the same options: you get the same phone. Without a key, `list_phones` before creating again.
 - Waits (`?wait=ready&timeout=`) cap at 55 s. A phone still `creating` or `starting` after a wait is normal: poll the same id.
 
@@ -39,9 +40,9 @@ curl --fail-with-body -X POST "https://mobilebox.dev/v1/phones/$ID/apps?grant_pe
 
 Phones are arm64-v8a: x86-only builds fail with `unsupported_abi`. A different signing key on update fails with `signature_mismatch`; don't uninstall to work around it unless the user asked for a fresh install. Fresh apps may open on a permission or onboarding dialog: answer it like a user would, then continue.
 
-**Cost.** A ready phone costs $0.01 per minute, billed per second. Parked phones are free. Set `idle_timeout` and `max_duration` (seconds) to bound your task. Never leave a phone running when you are done.
+**Cost.** A ready cloud Android phone costs $0.01 per minute, iPhone and iPad $0.05, a real Android device $0.03, billed per second. Parked phones are free. Set `idle_timeout` and `max_duration` (seconds) to bound your task. Never leave a phone running when you are done.
 
-**Not available:** Google Play, SMS, ADB, shell, logcat. iOS and real devices are early access (`platform: "ios"` is refused with `early_access`). Say so instead of attempting a workaround.
+**Devices.** Every response says which `platform` and `device` you got. There is no ADB or shell: work through the screen.
 
 ## Changing this repository
 

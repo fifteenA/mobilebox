@@ -154,18 +154,24 @@ Each creates a phone, checks one outcome and deletes the phone, also when the ch
 | [github-actions/](examples/github-actions) | APK smoke test in a workflow | a repo secret with your key |
 | [integrations/](examples/integrations) | OpenAI Agents SDK, LangGraph, CrewAI, browser-use, Mastra, Vercel AI SDK, Claude Agent SDK | the framework and a model key |
 
-## Pricing and limits
+## Pricing
 
-**$0.01 per ready phone-minute**, billed per second with a one-minute minimum per session. Boot time and parked phones are free. Up to 3 running and 10 kept phones per workspace. [Pricing](https://mobilebox.dev/pricing).
+| Device | Price |
+|---|---|
+| Cloud Android 14 phone (arm64) | $0.01 per phone-minute |
+| iPhone and iPad (`platform: "ios"`) | $0.05 per phone-minute |
+| Real Android device (`device: "real"`) | $0.03 per phone-minute |
+| Dedicated devices | from $79 per month |
+
+Billed per second while a phone is ready, with a one-minute minimum per session. Boot time and parked phones are free. New accounts start with $2 of credit; add more from the dashboard. Over 100 devices: [contact sales](https://calendly.com/mustafa-yenler/30min). [Pricing](https://mobilebox.dev/pricing).
 
 <details>
-<summary>All limits</summary>
+<summary>Requests and sessions</summary>
 
-- 3 running and 10 kept phones per workspace (called *project* in the API), shared by all its keys; parked phones count toward the 10.
 - Up to 20 actions per `act` call, 256 KB of JSON per request, waits up to 55 s per call, APK uploads up to 300 MiB.
 - Phones park after 5 idle minutes (`idle_timeout`, 60–3,600 s) and after 15 minutes of running (`max_duration`, up to 3 hours).
-- Apps with strict root or integrity checks (e.g. Play Integrity) may not run.
-- Not available yet: Google Play, SMS, iOS, public ADB or shell, logcat. Real-device and iOS: early access via hello@mobilebox.dev.
+- All keys of a workspace (called *project* in the API) share its phones and balance.
+- Apps with strict root or integrity checks (e.g. Play Integrity) may not run on a cloud phone; use a real Android device for those.
 </details>
 
 ## Security
