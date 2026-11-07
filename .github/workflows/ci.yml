@@ -28,7 +28,7 @@ jobs:
         run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:v8.30.1 git /repo --redact --verbose
 
   mcp:
-    name: keyless MCP check
+    name: MCP check
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -36,9 +36,11 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-      # initialize + tools/list against https://mobilebox.dev/mcp without a key,
+      # OAuth discovery without a key; with the key: initialize + tools/list,
       # README tool table vs live tools/list, server.json vs the official MCP registry.
       - run: node scripts/check-mcp.mjs
+        env:
+          MOBILESANDBOX_API_KEY: ${{ secrets.MOBILESANDBOX_API_KEY }}
 
   has-key:
     runs-on: ubuntu-latest
