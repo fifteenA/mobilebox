@@ -130,11 +130,11 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | Tool | What it does | Arguments (`?` = optional) |
 |---|---|---|
 | `list_phones` | List this project's phones and their status. | – |
-| `create_phone` | Create a phone, wait until it is ready and return its first screen. | `platform?`, `device?`, `name?`, `idle_timeout?`, `max_duration?`, `country?`, `idempotency_key?`, `task?` |
+| `create_phone` | Create a phone, wait until it is ready and return its first screen. | `platform?`, `device?`, `name?`, `idle_timeout?`, `max_duration?`, `country?`, `city?`, `network?`, `idempotency_key?`, `task?` |
 | `start_phone` | Resume a parked phone. | `phone_id` |
 | `park_phone` | Park a phone: shuts it down and stops billing. | `phone_id` |
 | `delete_phone` | Delete a phone and everything on it. | `phone_id` |
-| `set_device` | Set where the phone is: timezone (IANA), locale (BCP-47), GPS location, and proxy (socks5://user:pass@host:port; all traffic leaves through it, null = direct). | `phone_id`, `timezone?`, `locale?`, `location?`, `proxy?` |
+| `set_device` | Set where the phone is: country and city (sets GPS, timezone and locale together), or timezone (IANA), locale (BCP-47) and GPS location one by one; network (datacenter, residential, mobile); proxy (socks5://user:pass@host:port; all traffic leaves through it and wins over network, null = direct). | `phone_id`, `timezone?`, `locale?`, `location?`, `proxy?`, `country?`, `city?`, `network?` |
 | `install_app` | Install or update an app from a public download URL: an APK (arm64-v8a or universal) or a split bundle (.apks/.xapk; the splits this phone needs are picked). | `phone_id`, `url`, `grant_permissions?` |
 | `list_apps` | Apps the user installed on this phone. | `phone_id` |
 | `uninstall_app` | Uninstall an app and delete its data. | `phone_id`, `package` |
