@@ -1,4 +1,5 @@
-// Keyless check of the live MCP server, no dependencies (Node 24).
+// Check of the live MCP server, no dependencies (Node 24): OAuth discovery without a key,
+// then initialize + tools/list with MOBILESANDBOX_API_KEY (skipped when the key is absent).
 //   node scripts/check-mcp.mjs          # fail if prod, README tool table or server.json drifted
 //   node scripts/check-mcp.mjs --write  # regenerate the README tool table from live tools/list
 import { readFile, writeFile } from 'node:fs/promises'
@@ -8,11 +9,12 @@ const base = process.env.MOBILESANDBOX_URL ?? 'https://mobilebox.dev'
 const readmePath = new URL('../README.md', import.meta.url)
 const serverJsonPath = new URL('../server.json', import.meta.url)
 const errors = []
+const key = process.env.MOBILESANDBOX_API_KEY
 
 async function rpc(method, params) {
   const response = await fetch(`${base}/mcp`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream', ...(key && { Authorization: `Bearer ${key}` }) },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, ...(params ? { params } : {}) }),
     signal: AbortSignal.timeout(30_000),
   })
@@ -23,6 +25,25 @@ async function rpc(method, params) {
   const message = JSON.parse(json)
   if (message.error) throw new Error(`${method} -> ${JSON.stringify(message.error)}`)
   return message.result
+}
+
+// Without a key the server must ask for sign-in the way MCP clients expect (401 + resource_metadata).
+const challenge = await fetch(`${base}/mcp`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
+  body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'mobilebox-repo-ci', version: '1' } } }),
+  signal: AbortSignal.timeout(30_000) })
+const metadataUrl = /resource_metadata="([^"]+)"/.exec(challenge.headers.get('www-authenticate') ?? '')?.[1]
+if (challenge.status !== 401 || !metadataUrl) errors.push(`keyless initialize: expected 401 with resource_metadata, got ${challenge.status}`)
+else {
+  const resource = await (await fetch(metadataUrl, { signal: AbortSignal.timeout(30_000) })).json()
+  const issuer = resource.authorization_servers?.[0]
+  const server = issuer && await (await fetch(`${issuer.replace(/\/$/, '')}/.well-known/oauth-authorization-server`, { signal: AbortSignal.timeout(30_000) })).json()
+  if (!server?.authorization_endpoint || !server?.token_endpoint) errors.push('OAuth discovery: authorization server metadata incomplete')
+  else console.log(`oauth ok: ${metadataUrl} → ${server.authorization_endpoint}`)
+}
+if (!key) {
+  console.log('MOBILESANDBOX_API_KEY not set: skipping initialize, tools/list and the README check')
+  if (errors.length) { console.error(errors.join('\n')); process.exit(1) }
+  process.exit(0)
 }
 
 const init = await rpc('initialize', {

@@ -121,7 +121,7 @@ Over MCP, ask your agent to show you the phone: `watch_phone` returns the link (
 
 ## Tools
 
-Phones, apps and the screen over MCP; REST adds binary APK upload, account balance and billed sessions. Without a key, `/mcp` answers `initialize`, `tools/list` and `ping`; every `tools/call` needs the key.
+Phones, apps and the screen over MCP; REST adds binary APK upload, account balance and billed sessions. Sign in once with OAuth from any MCP client that supports it (Claude, ChatGPT, Cursor, VS Code): add `https://mobilebox.dev/mcp` and approve. Or send your key as `Authorization: Bearer`.
 
 <details>
 <summary>All tools and actions (generated from the live <code>tools/list</code>; CI fails when it drifts)</summary>
