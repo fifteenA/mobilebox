@@ -142,6 +142,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | `act` | Run 1–20 actions in order, stop at the first failure, return results and the new screen. | `phone_id`, `actions` |
 | `screenshot` | PNG of the screen, for content the element list cannot show (images, maps, games). | `phone_id` |
 | `watch_phone` | A link to watch the phone live, for the user: its screen with each of your actions drawn on it (cursor, taps, swipes, typed text) and a caption per step. | `phone_id` |
+| `request_capability` | Tell Mobilebox about something you needed and we don't offer yet; it's recorded and answered by the team. | `what`, `why?` |
 <!-- tools:end -->
 
 Actions for `act`: `tap`, `long_press`, `swipe`, `scroll`, `scroll_to`, `type`, `key`, `back`, `home`, `open_app`, `close_app`, `wait`, `wait_for`. Targets: `{"text":"OK"}` (best default), `{"ref":3}`, `{"id":"com.app:id/login"}`, `{"desc":"Navigate up"}`, `{"x":540,"y":1200}`. REST only: `POST /v1/phones/{id}/apps` (APK upload), `GET /v1/account`, `GET /v1/phones/{id}/sessions`. Full vocabulary: [API reference](https://mobilebox.dev/docs/reference?via=readme).
