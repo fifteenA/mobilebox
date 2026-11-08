@@ -26,7 +26,7 @@ node summarize.mjs           # results/*.csv → results/summary.csv
 node chart.mjs               # results/summary.csv → results/cold-start.svg (+ -narrow.svg)
 ```
 
-`RUNS` (default 5) and `TAPS` (default 10) change the counts. `CLIENT` labels where the script ran; network distance is part of every number.
+`RUNS` (default 5) and `TAPS` (default 10) change the counts. `mobilebox.mjs` holds one phone at a time; don't run two copies (or the workflow and a local run) on the same key at once, or other jobs on that key can hit the per-key phone limit. `CLIENT` labels where the script ran; network distance is part of every number.
 
 The [benchmarks workflow](../.github/workflows/benchmarks.yml) runs the emulator with and without KVM and Mobilebox from the same `ubuntu-latest` runner.
 
