@@ -1,4 +1,4 @@
-<a href="https://mobilebox.dev">
+<a href="https://mobilebox.dev/?via=readme">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/readme/banner-dark.png">
     <img src=".github/readme/banner-light.png" alt="Mobilebox: mobile sandboxes for your AI agents" width="100%">
@@ -8,8 +8,8 @@
 <p align="center"><b>Cloud Android phones your agent drives over MCP or REST.</b><br>It reads the screen as numbered elements, then taps, types and installs apps.</p>
 
 <p align="center">
-  <a href="https://mobilebox.dev">Website</a> ·
-  <a href="https://mobilebox.dev/docs">Docs</a> ·
+  <a href="https://mobilebox.dev/?via=readme">Website</a> ·
+  <a href="https://mobilebox.dev/docs?via=readme">Docs</a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="https://registry.modelcontextprotocol.io/v0/servers?search=dev.mobilebox/mobilebox">MCP registry</a>
 </p>
@@ -59,7 +59,7 @@
 
 ## Quickstart
 
-**1. Get a key.** [Sign up with GitHub](https://mobilebox.dev/signup) ($2 of credit, 200 phone-minutes) and create an agent key in the [dashboard](https://mobilebox.dev/dashboard).
+**1. Get a key.** [Sign up with GitHub](https://mobilebox.dev/signup?via=readme) ($2 of credit, 200 phone-minutes) and create an agent key in the [dashboard](https://mobilebox.dev/dashboard?via=readme).
 
 ```bash
 export MOBILESANDBOX_API_KEY=...   # keep it in your shell or secret manager, never in a prompt
@@ -102,7 +102,7 @@ bearer_token_env_var = "MOBILESANDBOX_API_KEY"
 
 > Use Mobilebox. Create a phone, open Settings and tell me which Android version it runs. Delete the phone at the end, even if a step fails.
 
-Next: let your agent [test the APK you just built](examples/claude-code), or run the same check [in CI](examples/github-actions). No MCP client? [curl/walkthrough.sh](examples/curl/walkthrough.sh) does the whole loop over REST ([OpenAPI](https://mobilebox.dev/openapi.json), [reference](https://mobilebox.dev/docs/reference)).
+Next: let your agent [test the APK you just built](examples/claude-code), or run the same check [in CI](examples/github-actions). No MCP client? [curl/walkthrough.sh](examples/curl/walkthrough.sh) does the whole loop over REST ([OpenAPI](https://mobilebox.dev/openapi.json?via=readme), [reference](https://mobilebox.dev/docs/reference?via=readme)).
 
 ## Watch your agent
 
@@ -117,7 +117,7 @@ Open a live view of any running phone and see every step as it happens: a cursor
 npx mobilebox watch <phone_id>   # with MOBILESANDBOX_API_KEY set: opens the view in its own window
 ```
 
-Over MCP, ask your agent to show you the phone: `watch_phone` returns the link (REST: `POST /v1/phones/{id}/view`). The dashboard has a Watch button on every running phone. The view is read-only and watching is free. Try it with [watch/watch.sh](examples/watch/watch.sh); details in the [API reference](https://mobilebox.dev/docs/reference#watch-live).
+Over MCP, ask your agent to show you the phone: `watch_phone` returns the link (REST: `POST /v1/phones/{id}/view`). The dashboard has a Watch button on every running phone. The view is read-only and watching is free. Try it with [watch/watch.sh](examples/watch/watch.sh); details in the [API reference](https://mobilebox.dev/docs/reference?via=readme#watch-live).
 
 ## Tools
 
@@ -144,7 +144,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | `watch_phone` | A link to watch the phone live, for the user: its screen with each of your actions drawn on it (cursor, taps, swipes, typed text) and a caption per step. | `phone_id` |
 <!-- tools:end -->
 
-Actions for `act`: `tap`, `long_press`, `swipe`, `scroll`, `scroll_to`, `type`, `key`, `back`, `home`, `open_app`, `close_app`, `wait`, `wait_for`. Targets: `{"text":"OK"}` (best default), `{"ref":3}`, `{"id":"com.app:id/login"}`, `{"desc":"Navigate up"}`, `{"x":540,"y":1200}`. REST only: `POST /v1/phones/{id}/apps` (APK upload), `GET /v1/account`, `GET /v1/phones/{id}/sessions`. Full vocabulary: [API reference](https://mobilebox.dev/docs/reference).
+Actions for `act`: `tap`, `long_press`, `swipe`, `scroll`, `scroll_to`, `type`, `key`, `back`, `home`, `open_app`, `close_app`, `wait`, `wait_for`. Targets: `{"text":"OK"}` (best default), `{"ref":3}`, `{"id":"com.app:id/login"}`, `{"desc":"Navigate up"}`, `{"x":540,"y":1200}`. REST only: `POST /v1/phones/{id}/apps` (APK upload), `GET /v1/account`, `GET /v1/phones/{id}/sessions`. Full vocabulary: [API reference](https://mobilebox.dev/docs/reference?via=readme).
 </details>
 
 ## Examples
@@ -170,7 +170,7 @@ Each creates a phone, checks one outcome and deletes the phone, also when the ch
 | Real Android device (`device: "real"`) | $0.03 per phone-minute |
 | Dedicated devices | from $79 per month |
 
-Billed per second while a phone is ready, with a one-minute minimum per session. Boot time and parked phones are free. New accounts start with $2 of credit; add more from the dashboard. Over 100 devices: [contact sales](https://calendly.com/mustafa-yenler/30min). [Pricing](https://mobilebox.dev/pricing).
+Billed per second while a phone is ready, with a one-minute minimum per session. Boot time and parked phones are free. New accounts start with $2 of credit; add more from the dashboard. Over 100 devices: [contact sales](https://calendly.com/mustafa-yenler/30min). [Pricing](https://mobilebox.dev/pricing?via=readme).
 
 <details>
 <summary>Requests and sessions</summary>
@@ -193,13 +193,13 @@ Each phone is an isolated Android sandbox on Mobilebox servers in Germany, reach
 - **The phone is a sandbox, not your machine.** Each phone is a cloud Android 14 phone on Mobilebox servers in Nuremberg, Germany. There is no public ADB or shell. Phones can reach the internet (or the SOCKS5 proxy you set) but not each other or Mobilebox's internal network.
 - **Screen content goes to your agent, and from there to its model provider.** Don't put data on a phone that you aren't allowed to send to your agent's model.
 - **We don't look into phones** except to fix a fault you report or when the law requires it. Park keeps apps, data and logins; delete removes them. Deleting a phone does not log out sessions on third-party servers.
-- Details: [privacy policy](https://mobilebox.dev/privacy), [key security](https://mobilebox.dev/blog/android-api-key-security). Found a vulnerability? See [SECURITY.md](SECURITY.md).
+- Details: [privacy policy](https://mobilebox.dev/privacy?via=readme), [key security](https://mobilebox.dev/blog/android-api-key-security?via=readme). Found a vulnerability? See [SECURITY.md](SECURITY.md).
 </details>
 
 ## For agents
 
-[AGENTS.md](AGENTS.md) is the operating guide: the loop, targets, error recovery and cleanup. Live versions: [skill.md](https://mobilebox.dev/skill.md), [llms.txt](https://mobilebox.dev/llms.txt).
+[AGENTS.md](AGENTS.md) is the operating guide: the loop, targets, error recovery and cleanup. Live versions: [skill.md](https://mobilebox.dev/skill.md?via=readme), [llms.txt](https://mobilebox.dev/llms.txt?via=readme).
 
 ---
 
-Questions: hello@mobilebox.dev, or [open an issue](../../issues). [MIT](LICENSE) for this repository; the hosted service is covered by its [terms](https://mobilebox.dev/terms).
+Questions: hello@mobilebox.dev, or [open an issue](../../issues). [MIT](LICENSE) for this repository; the hosted service is covered by its [terms](https://mobilebox.dev/terms?via=readme).
