@@ -69,3 +69,11 @@ ok: brightness level is 83%
 deleted: ph_on7c4dcbzlnk
 ```
 </details>
+
+**2026-11-08**, Python packages ([packages/python/](../packages/python)), from Linux, Python 3.12, langchain-core 1.7.6, langchain-tests 1.1.9. Each run creates one phone and deletes it; afterwards `GET /v1/phones` showed none of ours (one older parked phone from another key was left alone).
+
+| Package | Command | Result | Time |
+|---|---|---|---|
+| `mobilebox` | `MOBILEBOX_LIVE=1 pytest -m live` | created, listed, observed, Settings > Display, failed tap with `code` and `next`, PNG, watch link, installed Editor 1.98, parked, started, deleted | 37.8 s |
+| `langchain-mobilebox` | `MOBILEBOX_LIVE=1 pytest tests/integration_tests` | LangChain standard `ToolsIntegrationTests` on `mobilebox_observe`; create, act, failed action reported, screenshot block, install, park, delete through the tools | 27.9 s |
+| both, offline | `pytest` in each package, Python 3.10 and 3.14, from the built wheels | 60 passed (incl. LangChain standard `ToolsUnitTests` for all 7 tools) | 3 s |
