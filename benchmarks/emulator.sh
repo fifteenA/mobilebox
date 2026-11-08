@@ -10,6 +10,8 @@ OUT=${OUT:-results/samples.csv} CLIENT=${CLIENT:-unknown client}
 P="Local emulator, KVM $ACCEL" REGION=${REGION:-runner}
 SDK=${ANDROID_HOME:?set ANDROID_HOME}
 export PATH="$SDK/cmdline-tools/latest/bin:$SDK/emulator:$SDK/platform-tools:$PATH"
+export ANDROID_AVD_HOME=${ANDROID_AVD_HOME:-$HOME/.android/avd} # avdmanager and emulator must agree on it
+mkdir -p "$ANDROID_AVD_HOME"
 mkdir -p results
 [ -f "$OUT" ] || echo 'date,provider,region,client,metric,run,ms,note' > "$OUT"
 ms() { echo $(( $(date +%s%N) / 1000000 )); }
@@ -26,7 +28,8 @@ APK=results/org.fossify.math_10.apk
 t=$(ms)
 yes | sdkmanager --licenses > /dev/null
 sdkmanager --install emulator platform-tools "$IMAGE" > /dev/null
-echo no | avdmanager create avd -n bench -k "$IMAGE" -d pixel_6 --force > /dev/null
+echo no | avdmanager create avd -n bench -k "$IMAGE" -d pixel_6 --force
+emulator -list-avds | grep -qx bench || { echo "AVD not created" >&2; exit 1; }
 record setup_image_and_avd 0 $(( $(ms) - t )) "$IMAGE"
 
 for run in $(seq 1 "$RUNS"); do
