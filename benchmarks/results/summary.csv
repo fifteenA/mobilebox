@@ -1,0 +1,8 @@
+provider,region,client,metric,n,failed,median_ms,p90_ms,dates
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),apk_install,4,0,849,1279,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),cold_start_to_screenshot,4,0,19202,19498,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),park,4,0,1040,1212,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),ready,4,0,17904,18189,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),resume_to_screenshot,3,0,11976,12453,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),tap,40,0,514,533,2026-11-08
+Mobilebox,EU (Germany),Hetzner Nuremberg (same region as the API),tap_to_screenshot,40,0,1484,1680,2026-11-08

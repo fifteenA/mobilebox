@@ -1,0 +1,9 @@
+{
+  "name": "mobilebox-benchmarks",
+  "private": true,
+  "type": "module",
+  "description": "Scripts behind mobilebox.dev/benchmarks. Mobilebox and the emulator need nothing; each vendor script uses that vendor's own SDK.",
+  "dependencies": {
+    "@limrun/api": ""
+  }
+}

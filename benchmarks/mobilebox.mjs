@@ -1,6 +1,6 @@
 // Mobilebox: cold start → first screenshot, tap → screenshot, APK install, park → resume. Deletes every phone.
 //   MOBILESANDBOX_API_KEY=... CLIENT="my laptop, Berlin" node benchmarks/mobilebox.mjs
-import { apk, APK_PACKAGE, RUNS, TAPS, now, record, sleep } from './lib.mjs'
+import { APK_URL, APK_PACKAGE, RUNS, TAPS, now, record, sleep } from './lib.mjs'
 
 const base = process.env.MOBILESANDBOX_URL ?? 'https://mobilebox.dev'
 const key = process.env.MOBILESANDBOX_API_KEY ?? (() => { throw new Error('Set MOBILESANDBOX_API_KEY') })()
@@ -27,7 +27,6 @@ async function until(id, want) {
   throw new Error(`phone ${id} not ${want} after 300 s`)
 }
 
-const bin = new Uint8Array(await apk())
 for (let run = 1; run <= RUNS; run++) {
   let id
   try {
@@ -48,7 +47,7 @@ for (let run = 1; run <= RUNS; run++) {
     }
 
     let t = now()
-    await call(`/v1/phones/${id}/apps`, 'POST', bin)
+    await call(`/v1/phones/${id}/apps`, 'POST', { url: APK_URL }) // the phone downloads it, like the other providers
     record(P, REGION, 'apk_install', run, now() - t)
 
     t = now()
@@ -64,6 +63,8 @@ for (let run = 1; run <= RUNS; run++) {
   } catch (e) {
     record(P, REGION, 'error', run, null, e.message.slice(0, 200))
   } finally {
-    if (id) await call(`/v1/phones/${id}`, 'DELETE').catch((e) => record(P, REGION, 'cleanup_failed', run, null, `${id} ${e.message}`))
+    for (let i = 0; id && i < 5; i++) { // retried: a restarting API answers 502 for a few seconds
+      try { await call(`/v1/phones/${id}`, 'DELETE'); id = null } catch (e) { if (i === 4) record(P, REGION, 'cleanup_failed', run, null, `${id} ${e.message}`); else await sleep(10_000) }
+    }
   }
 }

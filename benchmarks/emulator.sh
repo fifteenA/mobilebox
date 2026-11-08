@@ -15,9 +15,10 @@ mkdir -p "$ANDROID_AVD_HOME"
 mkdir -p results
 [ -f "$OUT" ] || echo 'date,provider,region,client,metric,run,ms,note' > "$OUT"
 ms() { echo $(( $(date +%s%N) / 1000000 )); }
-record() { # metric run ms note
-  printf '%s,%s,%s,"%s",%s,%s,%s,"%s"\n' "$(date -u +%FT%TZ)" "$P" "$REGION" "$CLIENT" "$1" "$2" "$3" "${4//\"/\'}" >> "$OUT"
-  echo "$P run $2 $1: ${3:-FAILED} ms ${4:-}"
+record() { # metric run ms [note]
+  local note=${4:-}
+  printf '%s,%s,%s,"%s",%s,%s,%s,"%s"\n' "$(date -u +%FT%TZ)" "$P" "$REGION" "$CLIENT" "$1" "$2" "$3" "${note//\"/\'}" >> "$OUT"
+  echo "$P run $2 $1: ${3:-FAILED} ms $note"
 }
 
 ls -l /dev/kvm 2>&1 || true
