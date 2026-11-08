@@ -3,16 +3,17 @@
 #   ACCEL=on|off RUNS=5 CLIENT="GitHub Actions ubuntu-latest" benchmarks/emulator.sh
 # ACCEL=on needs /dev/kvm (the workflow adds the udev rule); ACCEL=off is pure software emulation.
 set -uo pipefail
+OUT=$(realpath -m "${OUT:-$(dirname "$0")/results/samples.csv}") # before the cd, so a relative OUT means the caller's directory
 cd "$(dirname "$0")"
 ACCEL=${ACCEL:-on} RUNS=${RUNS:-5} TAPS=${TAPS:-10} BOOT_LIMIT=${BOOT_LIMIT:-900}
 IMAGE=${IMAGE:-"system-images;android-34;google_apis;x86_64"}
-OUT=${OUT:-results/samples.csv} CLIENT=${CLIENT:-unknown client}
+CLIENT=${CLIENT:-unknown client}
 P="Local emulator, KVM $ACCEL" REGION=${REGION:-runner}
 SDK=${ANDROID_HOME:?set ANDROID_HOME}
 export PATH="$SDK/cmdline-tools/latest/bin:$SDK/emulator:$SDK/platform-tools:$PATH"
 export ANDROID_AVD_HOME=${ANDROID_AVD_HOME:-$HOME/.android/avd} # avdmanager and emulator must agree on it
 mkdir -p "$ANDROID_AVD_HOME"
-mkdir -p results
+mkdir -p results "$(dirname "$OUT")"
 [ -f "$OUT" ] || echo 'date,provider,region,client,metric,run,ms,note' > "$OUT"
 ms() { echo $(( $(date +%s%N) / 1000000 )); }
 record() { # metric run ms [note]

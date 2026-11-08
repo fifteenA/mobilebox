@@ -28,4 +28,4 @@ writeFileSync(join(dir, 'summary.csv'), out.join('\n') + '\n')
 console.log(out.join('\n'))
 
 // Self-check of the percentile rule the page states: nearest rank, nothing dropped.
-console.assert(pct([5, 1, 4, 2, 3], 50) === 3 && pct([5, 1, 4, 2, 3], 90) === 5 && pct([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 90) === 9, 'pct')
+if (!(pct([5, 1, 4, 2, 3], 50) === 3 && pct([5, 1, 4, 2, 3], 90) === 5 && pct([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 90) === 9)) throw new Error('pct self-check failed')

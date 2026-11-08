@@ -31,7 +31,7 @@ const HEADER = 'date,provider,region,client,metric,run,ms,note\n'
 export function record(provider, region, metric, run, ms, note = '') {
   if (!existsSync(OUT)) { mkdirSync(dirname(OUT), { recursive: true }); writeFileSync(OUT, HEADER) }
   const cell = (v) => /[",\n]/.test(String(v)) ? `"${String(v).replaceAll('"', '""')}"` : String(v)
-  const row = [new Date().toISOString(), provider, region, CLIENT, metric, run, ms == null ? '' : Math.round(ms), note]
+  const row = [new Date().toISOString(), provider, region, CLIENT, metric, run, ms == null ? '' : Math.round(ms), String(note).replace(/\s+/g, ' ')]
   appendFileSync(OUT, row.map(cell).join(',') + '\n')
   console.log(`${provider} run ${run} ${metric}: ${ms == null ? 'FAILED' : `${Math.round(ms)} ms`} ${note}`)
 }

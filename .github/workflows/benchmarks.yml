@@ -3,9 +3,6 @@ name: benchmarks
 # the Mobilebox job uses real credit (about $0.20 a run).
 on:
   workflow_dispatch:
-  push:
-    branches: [benchmarks]
-    paths: ['benchmarks/**', '.github/workflows/benchmarks.yml']
 
 permissions:
   contents: read
@@ -30,7 +27,7 @@ jobs:
         env:
           ACCEL: ${{ matrix.accel }}
           CLIENT: GitHub Actions ubuntu-latest
-          OUT: benchmarks/results/emulator-${{ matrix.accel }}.csv
+          OUT: ${{ github.workspace }}/benchmarks/results/emulator-${{ matrix.accel }}.csv
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -50,7 +47,7 @@ jobs:
         env:
           MOBILESANDBOX_API_KEY: ${{ secrets.MOBILESANDBOX_API_KEY }}
           CLIENT: GitHub Actions ubuntu-latest
-          OUT: benchmarks/results/mobilebox-ci.csv
+          OUT: ${{ github.workspace }}/benchmarks/results/mobilebox-ci.csv
       - uses: actions/upload-artifact@v7
         if: always()
         with:
