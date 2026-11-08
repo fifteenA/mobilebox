@@ -7,7 +7,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "lint": "tsc -p . && node --check examples/github-actions/smoke.mjs && node --check scripts/check-mcp.mjs && python3 -m py_compile examples/python/mobilebox.py examples/integrations/*/agent.py && node --check examples/integrations/mastra/agent.ts && node --check examples/integrations/vercel-ai-sdk/agent.ts && node --check examples/integrations/claude-agent-sdk/agent.ts",
+    "lint": "tsc -p . && node --check examples/github-actions/smoke.mjs && node --check scripts/check-mcp.mjs && python3 -m py_compile examples/python/mobilebox.py examples/integrations/*/agent.py && node --check examples/integrations/mastra/agent.ts && node --check examples/integrations/vercel-ai-sdk/agent.ts && node --check examples/integrations/claude-agent-sdk/agent.ts && for f in benchmarks/*.mjs; do node --check \"$f\" || exit 1; done && node benchmarks/summarize.mjs > /dev/null",
     "check:mcp": "node scripts/check-mcp.mjs"
   },
   "devDependencies": {

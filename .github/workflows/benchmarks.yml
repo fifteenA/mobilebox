@@ -1,0 +1,55 @@
+name: benchmarks
+# Reruns the published measurements (mobilebox.dev/benchmarks) on a fresh ubuntu-latest runner. Manual only:
+# the Mobilebox job uses real credit (about $0.20 a run).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  emulator:
+    name: local emulator, KVM ${{ matrix.accel }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        accel: [on, off]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Enable KVM
+        if: matrix.accel == 'on'
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - run: benchmarks/emulator.sh
+        env:
+          ACCEL: ${{ matrix.accel }}
+          CLIENT: GitHub Actions ubuntu-latest
+          OUT: ${{ github.workspace }}/benchmarks/results/emulator-${{ matrix.accel }}.csv
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: emulator-${{ matrix.accel }}
+          path: benchmarks/results/*.csv
+
+  mobilebox:
+    name: Mobilebox from the same runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: node benchmarks/mobilebox.mjs
+        env:
+          MOBILESANDBOX_API_KEY: ${{ secrets.MOBILESANDBOX_API_KEY }}
+          CLIENT: GitHub Actions ubuntu-latest
+          OUT: ${{ github.workspace }}/benchmarks/results/mobilebox-ci.csv
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: mobilebox-ci
+          path: benchmarks/results/*.csv

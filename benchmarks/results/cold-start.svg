@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 392" width="760" height="392" role="img" aria-labelledby="t d" font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<title id="t">Cold start to first screenshot, median seconds (November 8, 2026)</title>
+<desc id="d">Limrun: 0.98 s median, 1.07 s p90, n=10; Mobilebox: 19.4 s median, 19.5 s p90, n=10; Phone Harness: 23.0 s median, 70.0 s p90, n=10; Mobilebox, from a CI runner: 20.3 s median, 20.6 s p90, n=5; Local emulator, KVM: 50.0 s median, 50.3 s p90, n=5; Local emulator, no KVM: 812.7 s median, 812.7 s p90, n=1</desc>
+<rect width="760" height="392" fill="#fff"/>
+<text x="0" y="22" font-size="17" font-weight="500" fill="#111318">Cold start to first screenshot</text>
+<text x="0" y="44" font-size="14" fill="#5e626c">Median seconds, tick = p90. Mobilebox benchmark, November 8, 2026. Shorter is faster.</text>
+<line x1="200" x2="200" y1="58" y2="358" stroke="#e8e9ed"/><text x="200" y="378" font-size="14" fill="#5e626c" text-anchor="middle">0 s</text>
+<line x1="276.57142857142856" x2="276.57142857142856" y1="58" y2="358" stroke="#e8e9ed"/><text x="276.57142857142856" y="378" font-size="14" fill="#5e626c" text-anchor="middle">10 s</text>
+<line x1="353.1428571428571" x2="353.1428571428571" y1="58" y2="358" stroke="#e8e9ed"/><text x="353.1428571428571" y="378" font-size="14" fill="#5e626c" text-anchor="middle">20 s</text>
+<line x1="429.71428571428567" x2="429.71428571428567" y1="58" y2="358" stroke="#e8e9ed"/><text x="429.71428571428567" y="378" font-size="14" fill="#5e626c" text-anchor="middle">30 s</text>
+<line x1="506.2857142857143" x2="506.2857142857143" y1="58" y2="358" stroke="#e8e9ed"/><text x="506.2857142857143" y="378" font-size="14" fill="#5e626c" text-anchor="middle">40 s</text>
+<line x1="582.8571428571429" x2="582.8571428571429" y1="58" y2="358" stroke="#e8e9ed"/><text x="582.8571428571429" y="378" font-size="14" fill="#5e626c" text-anchor="middle">50 s</text>
+<line x1="659.4285714285713" x2="659.4285714285713" y1="58" y2="358" stroke="#e8e9ed"/><text x="659.4285714285713" y="378" font-size="14" fill="#5e626c" text-anchor="middle">60 s</text>
+<line x1="736" x2="736" y1="58" y2="358" stroke="#e8e9ed"/><text x="736" y="378" font-size="14" fill="#5e626c" text-anchor="end">70 s</text>
+<text x="186" y="93" font-size="14" fill="#111318" text-anchor="end">Limrun</text><g><title>Limrun: median 0.98 s, p90 1.07 s, n=10</title>
+<path d="M200 79h3.481028571428567a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-3.481028571428567z" fill="#2a46d1"/>
+<line x1="208.17017142857142" x2="208.17017142857142" y1="76" y2="100" stroke="#111318" stroke-width="2"/>
+<text x="216.17017142857142" y="93" font-size="14" fill="#111318">0.98 s</text>
+</g>
+<text x="186" y="141" font-size="14" fill="#111318" text-anchor="end">Mobilebox</text><g><title>Mobilebox: median 19.4 s, p90 19.5 s, n=10</title>
+<path d="M200 127h144.18868571428573a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-144.18868571428573z" fill="#2a46d1"/>
+<line x1="349.2147428571428" x2="349.2147428571428" y1="124" y2="148" stroke="#111318" stroke-width="2"/>
+<text x="357.2147428571428" y="141" font-size="14" fill="#111318">19.4 s</text>
+</g>
+<text x="186" y="189" font-size="14" fill="#111318" text-anchor="end">Phone Harness</text><g><title>Phone Harness: median 23.0 s, p90 70.0 s, n=10</title>
+<path d="M200 175h172.3286857142857a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-172.3286857142857z" fill="#2a46d1"/>
+<line x1="376.3286857142857" x2="735.8238857142858" y1="184" y2="184" stroke="#5e626c" stroke-width="1"/><line x1="735.8238857142858" x2="735.8238857142858" y1="172" y2="196" stroke="#111318" stroke-width="2"/>
+<text x="384.3286857142857" y="170" font-size="14" fill="#111318">23.0 s</text>
+<text x="729.8238857142858" y="170" font-size="14" fill="#5e626c" text-anchor="end">p90 70.0 s</text></g>
+<text x="186" y="237" font-size="14" fill="#111318" text-anchor="end">Mobilebox, from a CI runner</text><g><title>Mobilebox, from a CI runner: median 20.3 s, p90 20.6 s, n=5</title>
+<path d="M200 223h151.19497142857142a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-151.19497142857142z" fill="#2a46d1"/>
+<line x1="357.9668571428572" x2="357.9668571428572" y1="220" y2="244" stroke="#111318" stroke-width="2"/>
+<text x="365.9668571428572" y="237" font-size="14" fill="#111318">20.3 s</text>
+</g>
+<text x="186" y="285" font-size="14" fill="#111318" text-anchor="end">Local emulator, KVM</text><g><title>Local emulator, KVM: median 50.0 s, p90 50.3 s, n=5</title>
+<path d="M200 271h378.9260571428572a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-378.9260571428572z" fill="#2a46d1"/>
+<line x1="584.9858285714286" x2="584.9858285714286" y1="268" y2="292" stroke="#111318" stroke-width="2"/>
+<text x="592.9858285714286" y="285" font-size="14" fill="#111318">50.0 s</text>
+</g>
+<text x="186" y="333" font-size="14" fill="#111318" text-anchor="end">Local emulator, no KVM</text><text x="200" y="333" font-size="14" fill="#5e626c">13.5 min, off this scale (n=1)</text>
+</svg>
