@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "langchain-mobilebox"
 dynamic = ["version"]
-description = "LangChain tools for Mobilebox: cloud Android phones your agent creates, reads, taps and types on."
+description = "LangChain tools for Mobilebox: cloud Android phones for AI agents, over MCP and REST. $0.01 a minute."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]

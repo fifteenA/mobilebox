@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "mobilebox"
 dynamic = ["version"]
-description = "Python client for Mobilebox: cloud Android phones your AI agent drives over REST."
+description = "Python client for Mobilebox: cloud Android phones for AI agents, over MCP and REST. $0.01 a minute."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]

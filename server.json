@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "dev.mobilebox/mobilebox",
-  "description": "Cloud Android phones for AI agents: read the screen, tap, type, install APKs, park and resume.",
+  "description": "Cloud Android phones for AI agents, over MCP and REST. $0.01 a minute.",
   "title": "Mobilebox",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "websiteUrl": "https://mobilebox.dev",
   "repository": {
     "url": "https://github.com/fifteenA/mobilebox",
@@ -15,8 +15,7 @@
       "url": "https://mobilebox.dev/mcp",
       "headers": [
         {
-          "description": "Bearer followed by your Mobilebox API key (from https://mobilebox.dev/dashboard)",
-          "isRequired": true,
+          "description": "Bearer followed by your Mobilebox API key (from https://mobilebox.dev/dashboard). Leave it out to sign in with OAuth instead.",
           "isSecret": true,
           "name": "Authorization"
         }
