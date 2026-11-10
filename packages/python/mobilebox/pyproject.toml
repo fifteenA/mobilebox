@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mobilebox"
+dynamic = ["version"]
+description = "Python client for Mobilebox: cloud Android phones your AI agent drives over REST."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "fifteenA, Inc.", email = "hello@mobilebox.dev" }]
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["android", "mobile", "agents", "ai", "automation", "testing", "mcp"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://mobilebox.dev"
+Documentation = "https://mobilebox.dev/docs/reference"
+Source = "https://github.com/fifteenA/mobilebox/tree/main/packages/python/mobilebox"
+Issues = "https://github.com/fifteenA/mobilebox/issues"
+
+[dependency-groups]
+test = ["pytest>=8"]
+
+[tool.hatch.version]
+path = "mobilebox/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["mobilebox", "tests", "README.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+markers = ["live: runs against production with a real API key (opt-in: MOBILEBOX_LIVE=1)"]

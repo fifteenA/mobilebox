@@ -3,3 +3,6 @@ __pycache__/
 screen.png
 *.apk
 .env
+dist/
+*.egg-info/
+.pytest_cache/

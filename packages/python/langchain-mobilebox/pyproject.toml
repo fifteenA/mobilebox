@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-mobilebox"
+dynamic = ["version"]
+description = "LangChain tools for Mobilebox: cloud Android phones your agent creates, reads, taps and types on."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "fifteenA, Inc.", email = "hello@mobilebox.dev" }]
+requires-python = ">=3.10"
+dependencies = ["langchain-core>=1.0,<2", "mobilebox>=0.1.0,<0.2"]
+keywords = ["langchain", "langgraph", "android", "mobile", "agents", "tools"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://mobilebox.dev/integrations"
+Documentation = "https://github.com/fifteenA/mobilebox/tree/main/packages/python/langchain-mobilebox#readme"
+Source = "https://github.com/fifteenA/mobilebox/tree/main/packages/python/langchain-mobilebox"
+Issues = "https://github.com/fifteenA/mobilebox/issues"
+
+[dependency-groups]
+test = ["pytest>=8", "pytest-asyncio>=0.23", "langchain-tests==1.1.9"]
+
+[tool.hatch.version]
+path = "langchain_mobilebox/tools.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["langchain_mobilebox", "tests", "README.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests/unit_tests"]

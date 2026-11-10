@@ -160,6 +160,7 @@ Each creates a phone, checks one outcome and deletes the phone, also when the ch
 | [typescript/mobilebox.ts](examples/typescript/mobilebox.ts) | minimal client + Settings check | Node 24 |
 | [claude-code/](examples/claude-code) | Claude Code tests the APK you just built | an arm64 or universal APK |
 | [github-actions/](examples/github-actions) | APK smoke test in a workflow | a repo secret with your key |
+| [packages/python/](packages/python) | `mobilebox` Python client and `langchain-mobilebox` LangChain tools | Python 3.10+ |
 | [integrations/](examples/integrations) | OpenAI Agents SDK, LangGraph, CrewAI, browser-use, Mastra, Vercel AI SDK, Claude Agent SDK | the framework and a model key |
 
 ## Pricing

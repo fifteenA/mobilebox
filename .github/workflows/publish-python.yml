@@ -1,0 +1,56 @@
+name: publish-python
+# Publishes one package to PyPI with trusted publishing (no token in the repo).
+# Tag format: pypi/<package>/v<version>, e.g. pypi/mobilebox/v0.1.0 or pypi/langchain-mobilebox/v0.1.0.
+# Publish mobilebox before a langchain-mobilebox that needs its new version.
+on:
+  push:
+    tags: ['pypi/*/v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      package: ${{ steps.tag.outputs.package }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - id: tag
+        name: Tag matches a package and its version
+        run: |
+          rest=${GITHUB_REF_NAME#pypi/}; package=${rest%/v*}; version=${rest##*/v}
+          case "$package" in mobilebox|langchain-mobilebox) ;; *) echo "::error::unknown package $package"; exit 1 ;; esac
+          echo "package=$package" >> "$GITHUB_OUTPUT"
+          pip install build twine pytest pytest-asyncio langchain-tests==1.1.9 -e packages/python/mobilebox -e packages/python/langchain-mobilebox
+          actual=$(pip show "$package" | sed -n 's/^Version: //p')
+          [ "$actual" = "$version" ] || { echo "::error::tag says $version, package says $actual"; exit 1; }
+      - name: Unit tests
+        working-directory: packages/python/${{ steps.tag.outputs.package }}
+        run: pytest -q
+      - name: Build
+        run: python -m build -o dist "packages/python/${{ steps.tag.outputs.package }}" && twine check --strict dist/*
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: pypi
+      url: https://pypi.org/project/${{ needs.build.outputs.package }}/
+    permissions:
+      id-token: write   # trusted publishing
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@v1.14.3
