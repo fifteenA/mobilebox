@@ -5,7 +5,7 @@
   </picture>
 </a>
 
-<p align="center"><b>Cloud Android phones for AI agents, over a hosted Android MCP server or a REST API.</b></p>
+<p align="center"><b>Cloud Android phones for AI agents, over MCP and REST. $0.01 a minute.</b></p>
 
 **Mobilebox gives your AI agent a phone it can use.** Claude Code, Codex, Cursor or your own agent loop creates a cloud Android 14 phone, reads the screen as numbered elements, taps, types, installs your APK, then parks or deletes the phone. One phone per task or pull request costs a few cents: $0.01 per phone-minute, billed per second.
 
