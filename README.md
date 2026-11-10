@@ -1,11 +1,16 @@
 <a href="https://mobilebox.dev/?via=readme">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/readme/banner-dark.png">
-    <img src=".github/readme/banner-light.png" alt="Mobilebox: mobile sandboxes for your AI agents" width="100%">
+    <img src=".github/readme/banner-light.png" alt="Mobilebox: cloud Android phones for AI agents" width="100%">
   </picture>
 </a>
 
-<p align="center"><b>Cloud Android phones your agent drives over MCP or REST.</b><br>It reads the screen as numbered elements, then taps, types and installs apps.</p>
+<p align="center"><b>Cloud Android phones for AI agents, over a hosted Android MCP server or a REST API.</b></p>
+
+**Mobilebox gives your AI agent a phone it can use.** Claude Code, Codex, Cursor or your own agent loop creates a cloud Android 14 phone, reads the screen as numbered elements, taps, types, installs your APK, then parks or deletes the phone. One phone per task or pull request costs a few cents: $0.01 per phone-minute, billed per second.
+
+- **Measured, 2026-11-08** ([method, scripts and CSV](benchmarks)): a Mobilebox phone was ready for its first screenshot in 19.4 s (median of 10) and a 10-minute session cost $0.10. On a GitHub Actions runner, the same start took 20.3 s, against 50 s for the Android emulator with KVM and 813 s without it (one run).
+- **Fair comparison:** in the same benchmark Limrun started in 0.98 s ($0.04 a minute on its $20 plan), and Clousd lists a lower price ($0.004 a minute, as published on 2026-11-10). [All cloud phones for AI agents, compared](https://mobilebox.dev/blog/best-cloud-phones-for-ai-agents?via=readme).
 
 <p align="center">
   <a href="https://mobilebox.dev/?via=readme">Website</a> ·
