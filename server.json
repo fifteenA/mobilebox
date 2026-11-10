@@ -3,8 +3,12 @@
   "name": "dev.mobilebox/mobilebox",
   "description": "Cloud Android phones for AI agents: read the screen, tap, type, install APKs, park and resume.",
   "title": "Mobilebox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "websiteUrl": "https://mobilebox.dev",
+  "repository": {
+    "url": "https://github.com/fifteenA/mobilebox",
+    "source": "github"
+  },
   "remotes": [
     {
       "type": "streamable-http",
