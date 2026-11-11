@@ -30,7 +30,7 @@
 </p>
 
 <p align="center">
-  <a href="https://cursor.com/en/install-mcp?name=mobilebox&config=eyJ1cmwiOiJodHRwczovL21vYmlsZWJveC5kZXYvbWNwIiwiaGVhZGVycyI6eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyICR7ZW52Ok1PQklMRVNBTkRCT1hfQVBJX0tFWX0ifX0%3D"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cursor.com/deeplink/mcp-install-light.svg"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add Mobilebox to Cursor" height="32"></picture></a>
+  <a href="https://cursor.com/install-mcp?name=mobilebox&config=eyJ1cmwiOiJodHRwczovL21vYmlsZWJveC5kZXYvbWNwIn0%3D"><picture><source media="(prefers-color-scheme: dark)" srcset="https://cursor.com/deeplink/mcp-install-light.svg"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add Mobilebox to Cursor" height="32"></picture></a>
   <a href="https://insiders.vscode.dev/redirect/mcp/install?name=mobilebox&inputs=%5B%7B%22id%22%3A%22mobilebox_key%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Mobilebox%20API%20key%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmobilebox.dev%2Fmcp%22%2C%22headers%22%3A%7B%22Authorization%22%3A%22Bearer%20%24%7Binput%3Amobilebox_key%7D%22%7D%7D"><img src="https://img.shields.io/badge/Install_in_VS_Code-111111?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Install Mobilebox in VS Code" height="32"></a>
 </p>
 
@@ -88,7 +88,7 @@ url = "https://mobilebox.dev/mcp"
 bearer_token_env_var = "MOBILESANDBOX_API_KEY"
 ```
 
-**Cursor**, `.cursor/mcp.json`:
+**Cursor**: the **Add to Cursor** button above installs the URL alone and Cursor signs you in over OAuth, no key. Or `.cursor/mcp.json` with the key:
 
 ```json
 { "mcpServers": { "mobilebox": { "url": "https://mobilebox.dev/mcp", "headers": { "Authorization": "Bearer ${env:MOBILESANDBOX_API_KEY}" } } } }
