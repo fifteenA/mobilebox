@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "dev.mobilebox/mobilebox",
-  "description": "Hosted Android MCP server: cloud Android phones for AI agents. https://mobilebox.dev/mcp, $0.01/min.",
-  "title": "Mobilebox: Hosted Android MCP server",
-  "version": "1.0.3",
+  "description": "A mobile sandbox for every agent: cloud Android phones over MCP, ready in ~20 s, $0.01/min.",
+  "title": "Mobilebox: Cloud phones for your agents",
+  "version": "1.0.4",
   "websiteUrl": "https://mobilebox.dev",
   "repository": {
     "url": "https://github.com/fifteenA/mobilebox",
