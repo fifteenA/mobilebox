@@ -1,5 +1,5 @@
 # browser-use + Mobilebox: one agent with a browser and a cloud Android phone (two custom actions over REST).
-#   pip install "browser-use<1" && uvx "browser-use<1" install  # written for browser-use 0.x
+#   pip install "browser-use<1" && uvx --from "browser-use<1" browser-use install  # written for browser-use 0.x
 #   MOBILESANDBOX_API_KEY=... OPENAI_API_KEY=... python agent.py
 import asyncio, json, os, urllib.error, urllib.request
 
