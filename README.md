@@ -147,6 +147,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | `act` | Run 1–20 actions on the phone in order (tap, type, swipe, scroll, keys, open or close apps, waits) and stop at the first failure. | `phone_id`, `actions` |
 | `screenshot` | Take a screenshot of the phone. | `phone_id` |
 | `watch_phone` | Get a link to watch the phone live, for the user: its screen with each of your actions drawn on it (cursor, taps, swipes, typed text) and a caption per step. | `phone_id` |
+| `publish_proof` | Publish this run's proof for a pull request: returns Markdown to post as the PR comment (passed or failed, duration and cost from the phone's session, up to 3 screenshots) and the screenshot URLs. | `phone_id`, `title`, `status`, `screenshots?`, `idempotency_key?` |
 | `request_capability` | Tell Mobilebox about something you needed and we don't offer yet; it's recorded and answered by the team. | `what`, `why?` |
 <!-- tools:end -->
 
