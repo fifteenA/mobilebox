@@ -142,7 +142,7 @@ Phones, apps and the screen over MCP; REST adds binary APK upload, account balan
 | `park_phone` | Park a phone: shuts it down and stops billing. | `phone_id` |
 | `delete_phone` | Delete a phone and everything on it: apps, data and logins. | `phone_id` |
 | `set_device` | Set where the phone is: country and city together, or timezone, locale and GPS one by one, plus the network its IP comes from or a proxy. | `phone_id`, `timezone?`, `locale?`, `location?`, `proxy?`, `country?`, `city?`, `network?` |
-| `install_app` | Install or update an app from a public download URL: an APK (arm64-v8a or universal) or a split bundle (.apks/.xapk; the splits this phone needs are picked). | `phone_id`, `url`, `grant_permissions?` |
+| `install_app` | Install or update an app from a public download URL: an APK (arm64-v8a or universal) or a split bundle (.apks/.xapk; the splits this phone needs are picked), up to 2 GB. | `phone_id`, `url`, `grant_permissions?` |
 | `list_apps` | List the apps the user installed on this phone, not the system apps. | `phone_id` |
 | `uninstall_app` | Uninstall an app and delete its data. | `phone_id`, `package` |
 | `observe` | Read the current screen as a numbered element list. | `phone_id` |
