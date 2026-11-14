@@ -1,11 +1,11 @@
 <a href="https://mobilebox.dev/?via=readme">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/readme/banner-dark.png">
-    <img src=".github/readme/banner-light.png" alt="Mobilebox: cloud Android phones for AI agents" width="100%">
+    <img src=".github/readme/banner-light.png" alt="Mobilebox: Cloud phones for your agents" width="100%">
   </picture>
 </a>
 
-<p align="center"><b>Cloud Android phones for AI agents, over MCP and REST. $0.01 a minute.</b></p>
+<p align="center"><b>Mobilebox: Cloud phones for your agents</b><br>Phones for your agents: each agent gets its own cloud Android phone over MCP, reads the screen, taps, types and installs your APK. Ready in ~20 s, $0.01/min, parked phones free.</p>
 
 **Mobilebox gives your AI agent a phone it can use.** Claude Code, Codex, Cursor or your own agent loop creates a cloud Android 14 phone, reads the screen as numbered elements, taps, types, installs your APK, then parks or deletes the phone. One phone per task or pull request costs a few cents: $0.01 per phone-minute, billed per second.
 
@@ -16,6 +16,8 @@
   <a href="https://mobilebox.dev/?via=readme">Website</a> ·
   <a href="https://mobilebox.dev/docs?via=readme">Docs</a> ·
   <a href="#quickstart">Quickstart</a> ·
+  <a href="https://cursor.com/install-mcp?name=mobilebox&config=eyJ1cmwiOiJodHRwczovL21vYmlsZWJveC5kZXYvbWNwIn0%3D">Add to Cursor</a> ·
+  <a href="https://mobilebox.dev/blog/screenshots-in-every-pull-request?via=readme">Screenshots in every PR</a> ·
   <a href="https://registry.modelcontextprotocol.io/v0/servers?search=dev.mobilebox/mobilebox">MCP registry</a>
 </p>
 
